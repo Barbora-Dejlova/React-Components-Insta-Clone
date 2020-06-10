@@ -7,39 +7,33 @@ import PostHeader from "./PostHeader";
 import "./Posts.css";
 
 // pass props in this file to
-const Post = props => {
-  const [likes, setLikes] = useState(props.dataFromParent.likes
-    );
-    console.log(props);
-  // set up state for the likes
-  console.log(likes);
 
-  const incrementLike = () => {
-    setLikes(likes => likes + 1)
-  }
+
+const Post = props => {
+  // set up state for the likes
+  const [likes, setLikes] = useState(props.post.likes);
+  const addLikes = evt => {
+    setLikes(likes + 1)
+  };
   return (
     <div className="post-border">
       <PostHeader
-        username={props.dataFromParent.username
-        }
+        username={props.post.username}
         thumbnailUrl={
-          props.dataFromParent.thumbnailUrl
+          props.post.thumbnailUrl
         }
       />
       <div className="post-image-wrapper">
         <img
           alt="post thumbnail"
           className="post-image"
-          src={props.dataFromParent.imageUrl}
+          src={props.post.imageUrl}
         />
       </div>
-      <LikeSection 
-      incrementLike={incrementLike}
-      likes={likes} 
-      />
+      <LikeSection likes={likes} setLikes={addLikes} />
       <CommentSection
-        postId={props.dataFromParent.imageUrl}
-        comments={props.dataFromParent.comments}
+        postId={props.post.imageUrl}
+        comments={props.post.comments}
       />
     </div>
   );
