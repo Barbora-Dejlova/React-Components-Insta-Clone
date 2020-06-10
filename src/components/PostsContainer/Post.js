@@ -1,5 +1,5 @@
 // You will add code in this file
-import React from "react";
+import React, { useState } from "react";
 import CommentSection from "../CommentSection/CommentSectionContainer";
 import LikeSection from "./LikeSection";
 import PostHeader from "./PostHeader";
@@ -7,28 +7,33 @@ import PostHeader from "./PostHeader";
 import "./Posts.css";
 
 // pass props in this file to
+
+
 const Post = props => {
   // set up state for the likes
-
+  const [likes, setLikes] = useState(props.dataFromParent.likes);
+  const addLikes = evt => {
+    setLikes(likes + 1)
+  };
   return (
     <div className="post-border">
       <PostHeader
-        username={props.post.username}
+        username={props.dataFromParent.username}
         thumbnailUrl={
-          props.post.thumbnailUrl
+          props.dataFromParent.thumbnailUrl
         }
       />
       <div className="post-image-wrapper">
         <img
           alt="post thumbnail"
           className="post-image"
-          src={props.post.imageUrl}
+          src={props.dataFromParent.imageUrl}
         />
       </div>
-      <LikeSection />
+      <LikeSection likes={likes} setLikes={addLikes} />
       <CommentSection
-        postId={props.post.imageUrl}
-        comments={props.post.comments}
+        postId={props.dataFromParent.imageUrl}
+        comments={props.dataFromParent.comments}
       />
     </div>
   );
